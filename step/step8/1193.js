@@ -13,10 +13,13 @@ while(X > 0) {
     groupCnt++;
     X = X - groupCnt;
 }
-console.log(X, groupCnt);
-// for (let i = 0; i < groupCnt ; i++) {
+
+if(groupCnt % 2 == 0) {
     ans.push(X + groupCnt);
     ans.push(groupCnt+1 - ans[0]);
-// }
+} else {
+    ans.push((groupCnt+1) - (X + groupCnt));
+    ans.push(X + groupCnt);
+}
 
-console.log(ans);
+console.log(ans.join("/"));

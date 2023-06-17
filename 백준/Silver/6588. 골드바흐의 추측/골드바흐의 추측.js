@@ -4,9 +4,9 @@ const n = 1000001;
 const table = Array(n).fill(1);
 
 // 소수가 아닌 모든 홀수 처리
-for(let i = 3 ; i < Math.ceil(Math.sqrt(n)) ; i += 2) {
-    if(table[i]) {
-        for(let j = i * 2 ; j < n ; j+=i) table[j] = 0;
+for (let i = 2 ; i <= Math.ceil(Math.sqrt(n)) ; i++) {
+    for(let j = i ** 2 ; j <= n ; j+=i) {
+        table[j] = 0;
     }
 }
 

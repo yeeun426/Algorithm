@@ -27,10 +27,12 @@ function bfs(N) {
 const time = bfs(N);
 const order = [];
 order.push(K);
+
 let prev = path[K];
 for (let i = 0; i < time; i++) {
     order.push(prev);
     prev = path[prev];
 }
 
-console.log(`${time}\n${order.reverse().join(" ")}`);
+console.log(time);
+console.log(order.reverse().join(" "));

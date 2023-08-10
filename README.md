@@ -20,7 +20,7 @@
 ## ***Schedule***
 |Week| 1 | 2 | 3 | 4 |
 |:--:|:-:|:-:|:-:|:-:|
-|[Week 1](https://github.com/Algorithm-Study-ICE/Algorithm_Study_ICE/tree/main/Week/week1)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" height="12"> 계단 오르기](https://www.acmicpc.net/problem/2579)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/10.svg" height="12"> 스티커](https://www.acmicpc.net/problem/9465)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" height="12"> 서강근육맨](https://www.acmicpc.net/problem/20300)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/11.svg" height="12"> 강의실 배정](https://www.acmicpc.net/problem/11000)
+|[Week 1](https://github.com/yeeun426/Algorithm/tree/main/BOJ/week1)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" height="12"> 계단 오르기](https://www.acmicpc.net/problem/2579)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/10.svg" height="12"> 스티커](https://www.acmicpc.net/problem/9465)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" height="12"> 서강근육맨](https://www.acmicpc.net/problem/20300)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/11.svg" height="12"> 강의실 배정](https://www.acmicpc.net/problem/11000)
 |[Week 2]()|||
 |[Week 3]()|||
 |[Week 4]()|||

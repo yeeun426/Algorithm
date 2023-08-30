@@ -21,8 +21,7 @@
 |Week| 1 | 2 | 3 | 4 |
 |:--:|:-:|:-:|:-:|:-:|
 |[Week 1](https://github.com/yeeun426/Algorithm/tree/main/BOJ/week1)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" height="12"> 계단 오르기](https://www.acmicpc.net/problem/2579)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/10.svg" height="12"> 스티커](https://www.acmicpc.net/problem/9465)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/8.svg" height="12"> 서강근육맨](https://www.acmicpc.net/problem/20300)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/11.svg" height="12"> 강의실 배정](https://www.acmicpc.net/problem/11000)
-|[Week 2]()|||
-|[Week 3]()|||
+|[Week 2](https://github.com/yeeun426/Algorithm/tree/main/BOJ/week2)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/10.svg" height="12"> 점프](https://www.acmicpc.net/problem/1890)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/11.svg" height="12"> 호텔](https://www.acmicpc.net/problem/1106)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/10.svg" height="12"> 주지수](https://www.acmicpc.net/problem/15724)|[<img src="https://d2gd6pc034wcta.cloudfront.net/tier/11.svg" height="12"> 선수과목](https://www.acmicpc.net/problem/14567)|[Week 3]()|||
 |[Week 4]()|||
 |[Week 5]()|||
 |[Week 6]()|||

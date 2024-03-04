@@ -4,7 +4,7 @@ function solution(N, number) {
 
   for (let i = 1; i <= 8; i++) {
     set[i].add(Number(`${N}`.repeat(i)));
-    for (let j = 0; j < i; j++) {
+    for (let j = 1; j < i; j++) {
       for (const cur of set[j]) {
         for (const val of set[i - j]) {
           set[i].add(cur + val);

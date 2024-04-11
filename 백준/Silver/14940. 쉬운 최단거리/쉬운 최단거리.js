@@ -37,8 +37,6 @@ for (let i = 0; i < n; i++) {
     for (let j = 0; j < m; j++) {
         if (graph[i][j] === 0) {
             visited[i][j] = 0;
-        } else if (!graph[i][j]) {
-            visited[i][j] = -1;
         }
     }
 }     

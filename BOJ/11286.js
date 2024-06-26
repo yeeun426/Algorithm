@@ -1,6 +1,7 @@
 let [N, ...X] = require("fs")
   .readFileSync("예제.txt")
   .toString()
+  .trim()
   .split("\n")
   .map(Number);
 
@@ -15,27 +16,30 @@ class MinHeap {
   }
 
   pop() {
-    if (this._size() === 0) return 0;
-    this._swap(0, this._size() - 1);
+    if (this.size() === 0) return 0;
+    this._swap(0, this.size() - 1);
     const poppedValue = this.heap.pop();
     this._siftDown();
     return poppedValue;
   }
 
-  _swap(a, b) {
-    [this.heap[a], this.heap[b]] = [this.heap[b], this.heap[a]];
-  }
-
-  _size() {
+  size() {
     return this.heap.length;
   }
 
   _greater(a, b) {
-    return a > b;
+    const absA = Math.abs(a),
+      absB = Math.abs(b);
+    if (absA === absB) return a > b;
+    return absA > absB;
+  }
+
+  _swap(i, j) {
+    [this.heap[i], this.heap[j]] = [this.heap[j], this.heap[i]];
   }
 
   _siftUp() {
-    let node = this._size() - 1;
+    let node = this.size() - 1;
     while (
       node > 0 &&
       this._greater(this.heap[Math.floor((node - 1) / 2)], this.heap[node])
@@ -48,13 +52,13 @@ class MinHeap {
   _siftDown() {
     let node = 0;
     while (
-      (node * 2 + 1 < this._size() &&
+      (node * 2 + 1 < this.size() &&
         this._greater(this.heap[node], this.heap[node * 2 + 1])) ||
-      (node * 2 + 2 < this._size() &&
+      (node * 2 + 2 < this.size() &&
         this._greater(this.heap[node], this.heap[node * 2 + 2]))
     ) {
       let minChild =
-        node * 2 + 2 < this._size() &&
+        node * 2 + 2 < this.size() &&
         this._greater(this.heap[node * 2 + 1], this.heap[node * 2 + 2])
           ? node * 2 + 2
           : node * 2 + 1;
@@ -64,16 +68,15 @@ class MinHeap {
   }
 }
 
-// 2 4 5 7 3
-const numArr = new MinHeap();
+const pq = new MinHeap();
 let result = [];
 
 for (let i = 0; i < N; i++) {
-  const x = X[i];
-  if (x !== 0) {
-    numArr.push(x);
+  const n = X[i];
+  if (n !== 0) {
+    pq.push(n);
   } else {
-    result.push(numArr.pop());
+    result.push(pq.pop());
   }
 }
 

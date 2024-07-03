@@ -7,7 +7,7 @@ const N_arr = input[1]
 const s = [];
 const answer = [];
 
-function dfs() {
+function dfs(start) {
   if (s.length === M) {
     answer.push(s.join(" ") + "\n");
     return;
@@ -16,7 +16,7 @@ function dfs() {
   for (let i = 0; i < N; i++) {
     if (!s.includes(N_arr[i])) {
       s.push(N_arr[i]);
-      dfs(N_arr[i + 1]);
+      dfs(i + 1);
       s.pop();
     }
   }

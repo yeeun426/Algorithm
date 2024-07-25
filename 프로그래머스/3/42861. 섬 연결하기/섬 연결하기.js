@@ -1,17 +1,18 @@
 function solution(n, costs) {
-  costs.sort((a, b) => a[2] - b[2]); // 비용 오름차순
-  let [from, to, answer] = costs.shift();
+  costs.sort((a, b) => a[2] - b[2]);
+  const connects = new Set([costs[0][0], costs[0][1]]);
+  let answer = costs[0][2];
 
-  const connected = new Set([from, to]);
-  while (connected.size < n) {
+  while (connects.size < n) {
     const index = costs.findIndex(
       ([from, to]) =>
-        (connected.has(from) && !connected.has(to)) ||
-        (connected.has(to) && !connected.has(from))
+        (connects.has(from) && !connects.has(to)) ||
+        (connects.has(to) && !connects.has(from))
     );
-    let [[from, to, cost]] = costs.splice(index, 1);
-    answer += cost;
-    connected.add(from).add(to);
+
+    answer += costs[index][2];
+    connects.add(costs[index][0]).add(costs[index][1]);
+    costs.splice(index, 1);
   }
   return answer;
 }

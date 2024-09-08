@@ -1,18 +1,16 @@
 function solution(n) {
   var answer = 0;
-
-  for (let i = 1; i < n; i++) {
-    let sum = i;
-
-    for (let j = i + 1; j < n; j++) {
+  const limit = n/2 + 1;
+  for (let i = 1; i < limit; i++) {
+    let sum = 0;
+    for (let j = i; j < limit; j++) {
       sum += j;
+      if (sum > n) break;
       if (sum === n) {
-        answer+=1;
-        break;
-      } else if (sum > n) {
+        answer += 1;
         break;
       }
     }
   }
-  return answer + 1;
+  return n === 1 ? 1 : answer+1;
 }

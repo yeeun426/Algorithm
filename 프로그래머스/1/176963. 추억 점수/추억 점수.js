@@ -1,22 +1,16 @@
 function solution(name, yearning, photo) {
     var answer = [];
-    let memory = {};
     
-    for(let i = 0; i < name.length ; i++) {
-        if(!memory[name[i]]) {
-            memory[name[i]] = yearning[i];
-        }
-    }
-    
-    for(let p = 0 ; p < photo.length ; p++) {
-        let score = 0;
-        let photoArr = photo[p];
-        for(let q = 0 ; q < photoArr.length ; q++) {
-            if(memory[photoArr[q]]) {
-                score += memory[photoArr[q]]
+    for(let i = 0; i < photo.length ; i++) {
+        let sum = 0;
+        for(let j = 0 ; j < photo[i].length ; j++) {
+            let index = name.indexOf(photo[i][j]);
+            if(index >= 0) {
+                  sum += yearning[index];
             }
         }
-        answer.push(score);
+        answer.push(sum)
     }
+    
     return answer;
 }

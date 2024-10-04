@@ -13,5 +13,6 @@ function solution(numbers, target) {
         dfs(count + 1, sum - numbers[count]);
     }
     dfs(0, 0);
+    
     return answer;
 }

@@ -4,7 +4,7 @@ for test_case in range(1, T + 1):
     cnt = 0
     N, K =  map(int, input().split())
     num_array = [int(num) for num in input().split()]
-    num_array.sort();
+    num_array.sort()
     num_list = []
     already_num = []
     for i in range(0, N):
@@ -12,7 +12,7 @@ for test_case in range(1, T + 1):
             already_num.append(num_array[i])
         else :
             num_list.append(num_array[i])
-    num_list.sort
+    num_list.sort()
 
     for i in range(0, len(num_list)):
         for j in range(0, len(num_list)):

@@ -1,24 +1,14 @@
 function solution(x, y, n) {
-  var answer = -1;
-  var count = 0;
+  let d = [...Array(y + 1).fill(Infinity)];
+  d[x] = 0;
 
-  function dfs(x, count) {
-    if (x === y) {
-      if (answer === -1) {
-        answer = count;
-      } else if (answer > count) {
-        answer = count;
-      }
-      return;
-    } else if (x > y) return;
-    else {
-      dfs(x * 2, count + 1);
-      dfs(x * 3, count + 1);
-      dfs(x + n, count + 1);
-    }
+  for (let i = x; i <= y; i++) {
+    if (i - n >= x) d[i] = Math.min(d[i], d[i - n] + 1);
+    if (i % 2 === 0 && i / 2 >= x) d[i] = Math.min(d[i], d[i / 2] + 1);
+    if (i % 3 === 0 && i / 3 >= x) d[i] = Math.min(d[i], d[i / 3] + 1);
   }
-  dfs(x, count);
-  return answer;
+
+  return d[y] === Infinity ? -1 : d[y];
 }
 
 console.log(solution(10, 40, 5));

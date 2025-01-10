@@ -6,6 +6,7 @@ function solution (n, edge) {
         graph[e[1]].push(e[0]);
     }
     
+console.log(graph)
     distance[1] = 0;   
     const queue = [1];
     

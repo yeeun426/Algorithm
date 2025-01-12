@@ -13,7 +13,6 @@ function solution(n, results) {
         visited[node] = true;
         if (rankList[node].rank[type]) return rankList[node].rank[type];
         if (rankList[node][type].length < 1) return 0;
-
         let rank = 0;
         rankList[node][type].forEach((v) => {
             if (!visited[v]) {

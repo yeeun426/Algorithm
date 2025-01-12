@@ -8,7 +8,7 @@ function solution(genres, plays) {
         albumMap.set(genre, (albumMap.get(genre) || 0 ) + play);
         albumObj[genres[i]] ? albumObj[genres[i]].push(plays[i]) : albumObj[genres[i]] = [plays[i]];
     }
-    
+    console.log(albumObj)
     for (const genre in albumObj) {
       if (albumObj.hasOwnProperty(genre)) {
         albumObj[genre].sort((a, b) => b - a);

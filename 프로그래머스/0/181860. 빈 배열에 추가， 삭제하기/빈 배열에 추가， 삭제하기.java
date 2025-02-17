@@ -11,6 +11,13 @@ class Solution {
                 str = str.substring(0, str.length() - arr[i]);
             }
         }   
-        return str.chars().map(c -> c - '0').toArray();
+        
+        int[] answer = new int[str.length()];
+        
+        for(int i = 0 ; i < answer.length ; i++) {
+            answer[i] = Integer.parseInt(str.split("")[i]);
+        }
+        
+        return answer;
     }
 }

@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 class Solution {
     public String[] solution(String[] picture, int k) {
         int rows = picture.length;
@@ -7,14 +9,10 @@ class Solution {
         for (int i = 0; i < rows; i++) {
             StringBuilder bigRow = new StringBuilder();
             for (int j = 0; j < cols; j++) {
-                char c = picture[i].charAt(j);
-                for (int l = 0; l < k; l++) {
-                    bigRow.append(c);
-                }
+                char c = picture[i].charAt(j); 
+                bigRow.append(String.valueOf(c).repeat(k));
             }
-            for (int p = 0; p < k; p++) {
-                answer[i * k + p] = bigRow.toString();
-            }
+            Arrays.fill(answer, i * k, (i + 1) * k, bigRow.toString());
         }
         return answer;
     }

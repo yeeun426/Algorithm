@@ -8,10 +8,10 @@ function solution(files) {
 
   answer.sort((a, b) => {
     if (a[1] > b[1]) return 1;
-    if (a[1] < b[1]) return -1;
-    if (a[2] > b[2]) return 1;
-    if (a[2] < b[2]) return -1;
+    else if (a[1] < b[1]) return -1;
+    else if (a[2] > b[2]) return 1;
+    else if (a[2] < b[2]) return -1;
   });
 
-  return answer.map((name) => name[0]);
+  return answer.map((el) => el[0]);
 }

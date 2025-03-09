@@ -1,29 +1,22 @@
-let input = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
-let M = Number(input[1]);
+let [string, M, ...input] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .split("\n");
 
-// 커서를 기준으로 왼쪽 오른쪽 나눔
-let left = input[0].trim().split("");
-let right = [];
+const leftStr = string.split("");
+const rightStr = [];
 
-for(let i = 2 ; i < 2 + M ; i++) {
-    const command = input[i].trim().split(" ")[0];
-    switch(command) {
-        case "L" :
-            if(left.length) right.push(left.pop());
-            break;
-        case "D" :
-            if(right.length) left.push(right.pop());
-            break;
-        case "B" :
-            if(left.length) left.pop();
-            break;
-        case "P" :
-            left.push(input[i].trim().split(" ")[1]);
-            break;
-        default :
-            break;
-    }
+for (let i = 0; i < +M; i++) {
+  const [command, str] = input[i].trim().split(" ");
+  if (command == "L" && leftStr.length > 0) {
+    rightStr.push(leftStr.pop());
+  } else if (command == "D" && rightStr.length > 0) {
+    leftStr.push(rightStr.pop());
+  } else if (command == "B" && leftStr.length > 0) {
+    leftStr.pop();
+  } else if (command == "P") {
+    leftStr.push(str);
+  }
 }
 
-
-console.log(`${left.join("")}${right.reverse().join("")}`);
+console.log([...leftStr, ...rightStr.reverse()].join(""));

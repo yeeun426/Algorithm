@@ -5,7 +5,7 @@ let [N, ...input] = require("fs")
   .split("\n");
 
 for (let i = 0; i < +N; i++) {
-  const string = input[i].trim().split("");
+  const string = input[i].split("");
   const leftStr = [];
   const rightStr = [];
 

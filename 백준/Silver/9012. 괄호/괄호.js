@@ -1,25 +1,26 @@
-let fs = require("fs");
-let input = fs.readFileSync("/dev/stdin").toString().trim().split("\n");
-input.shift();
+let [N, ...input] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
 
-for (let i = 0; i < input.length; i++) {
-	let count = 0;
-	let torf = true;
-	for (let j = 0; j < input[i].length; j++) {
-		if (input[i][j] === "(") count++;
-		else if (input[i][j] === ")") {
-			count--;
-			if (count < 0) {
-				torf = false;
-				break;
-			}
-		}
-	}
-	if (torf && count === 0) {
-		console.log("YES");
-		continue;
-	} else {
-		console.log("NO");
-		continue;
-	}
+for (let i = 0; i < +N; i++) {
+  const stack = [];
+  const strArr = input[i];
+  if (strArr[0] == ")") {
+    console.log("NO");
+    continue;
+  }
+
+  for (let j = 0; j < input[i].length; j++) {
+    if (strArr[j] == "(") {
+      stack.push("(");
+    } else if (strArr[j] == ")" && stack.length > 0) {
+      stack.pop();
+    } else {
+      stack.push(strArr[j]);
+      break;
+    }
+  }
+  console.log(stack.length > 0 ? "NO" : "YES");
 }

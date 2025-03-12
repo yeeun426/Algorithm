@@ -8,21 +8,21 @@ const arr = [];
 const answer = [];
 
 for (let i = 0; i < +N; i++) {
-  const [command, num] = input[i].split(" ");
+  const [command, num] = input[i].split(" ").map(Number);
   switch (command) {
-    case "push":
-      arr.push(+num);
+    case 1:
+      arr.push(num);
       break;
-    case "pop":
+    case 2:
       answer.push(arr.length > 0 ? arr.pop() : -1);
       break;
-    case "size":
+    case 3:
       answer.push(arr.length);
       break;
-    case "empty":
+    case 4:
       answer.push(arr.length ? 0 : 1);
       break;
-    case "top":
+    case 5:
       answer.push(arr.length > 0 ? arr[arr.length - 1] : -1);
       break;
     default:
@@ -30,4 +30,4 @@ for (let i = 0; i < +N; i++) {
   }
 }
 
-console.log(answer.join("\n"))
+console.log(answer.join("\n"));

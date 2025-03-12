@@ -1,21 +1,17 @@
-let [N, K] = require('fs').readFileSync('/dev/stdin').toString().split(" ").map(Number);
+let [N, K] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split(" ")
+  .map(Number);
 
-const circleQueue = [];
-const result = [];
+let peopleArr = Array.from({ length: N }, (v, i) => i + 1);
+let result = [];
+let index = 0;
 
-for(let i = 1 ; i < N+1 ; i++) {
-    circleQueue.push(i);
+while (peopleArr.length > 0) {
+  index = (index + K - 1) % peopleArr.length;
+  result.push(peopleArr.splice(index, 1)[0]);
 }
 
-let count = 1;
-
-while (circleQueue.length) {
-    const shiftItem = circleQueue.shift();
-    if(count % K == 0) {
-        result.push(shiftItem);
-    } else {
-        circleQueue.push(shiftItem);
-    }
-    count++;
-}
 console.log(`<${result.join(", ")}>`);

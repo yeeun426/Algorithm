@@ -1,35 +1,33 @@
-let input = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
-let N = +input.shift();
+let [N, ...input] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
 
-const result = [];
-const stack = [];
+const arr = [];
+const answer = [];
 
-for(let i = 0 ; i < N ; i++) {
-    const command = input[i].trim().split(" ")[0];
-    switch(command) {
-        case 'push' :
-            stack.push(input[i].split(" ")[1]);
-            break;
-
-        case 'pop' :
-            result.push(stack.pop() || -1);
-            break;
-
-        case 'size' :
-            result.push(stack.length);
-            break;
-
-        case 'empty' :
-            result.push(stack.length !== 0 ? 0 : 1);
-            break;
-
-        case 'top' :
-            result.push(stack[stack.length-1] || -1);
-            break;
-
-        default :
-            break;
-   }
+for (let i = 0; i < +N; i++) {
+  const [command, num] = input[i].split(" ");
+  switch (command) {
+    case "push":
+      arr.push(+num);
+      break;
+    case "pop":
+      answer.push(arr.length > 0 ? arr.pop() : -1);
+      break;
+    case "size":
+      answer.push(arr.length);
+      break;
+    case "empty":
+      answer.push(arr.length ? 0 : 1);
+      break;
+    case "top":
+      answer.push(arr.length > 0 ? arr[arr.length - 1] : -1);
+      break;
+    default:
+      break;
+  }
 }
 
-console.log(result.join("\n"));
+console.log(answer.join("\n"))

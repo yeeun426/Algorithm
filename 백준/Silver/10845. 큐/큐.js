@@ -1,38 +1,35 @@
-let [N, ...input] = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
+let [N, ...input] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+const queue = [];
+const answer = [];
 
-let queue = [];
-let result = [];
-
-for(let i = 0 ; i < N ; i++) {
-    const command = input[i].trim().split(" ")[0];
-    switch(command) {
-        case 'push' :
-            queue.push(+input[i].split(" ")[1]);
-            break;
-
-        case 'pop' :
-            result.push(queue.shift() || -1);
-            break;
-
-        case 'size' :
-            result.push(queue.length);
-            break;
-
-        case 'empty' :
-            result.push(queue[0] ? 0 : 1);
-            break;
-
-        case 'front' :
-            result.push(queue[0] || -1);
-            break;
-
-        case 'back' :
-            result.push(queue[queue.length-1] || -1);
-            break;
-
-        default :
-            break;
-   }
+for (let ele of input) {
+  let [command, num] = ele.split(" ");
+  switch (command) {
+    case "push":
+      queue.push(+num);
+      break;
+    case "pop":
+      answer.push(queue.length ? queue.shift() : -1);
+      break;
+    case "size":
+      answer.push(queue.length);
+      break;
+    case "empty":
+      answer.push(queue.length ? 0 : 1);
+      break;
+    case "front":
+      answer.push(queue.length ? queue[0] : -1);
+      break;
+    case "back":
+      answer.push(queue.length ? queue[queue.length - 1] : -1);
+      break;
+    default:
+      break;
+  }
 }
 
-console.log(result.join("\n"))
+console.log(answer.join("\n"));

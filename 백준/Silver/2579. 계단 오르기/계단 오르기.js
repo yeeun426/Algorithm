@@ -1,17 +1,31 @@
-let [N, ...scores] = require('fs').readFileSync('/dev/stdin').toString().split("\n").map(Number);
+let stairs = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n")
+  .map(Number);
 
-// 마지막 칸을 무조건 밟아야함
-// 마지막 칸이 10칸인 경우
-// 7 => 9 => 10 : (target - 3) + (target - 1) + target
-// ? => 8 => 10 : (target - 2) + target
+const N = stairs[0];
 
-const dp = new Array(N).fill(0);
-dp[0] = scores[0];
-dp[1] = scores[0] + scores[1];
-dp[2] = Math.max(scores[0], scores[1]) + scores[2];
+const dp = new Array(N + 1).fill(0);
 
-for(let i = 3 ; i < N ; i++) {
-    dp[i] = Math.max(dp[i-2] + scores[i], dp[i-3] + scores[i - 1] + scores[i]);
+dp[1] = stairs[1]; // 계단이 1개일 때
+dp[2] = stairs[1] + stairs[2]; // 계단이 2개일 때
+dp[3] = Math.max(stairs[1], stairs[2]) + stairs[3]; // 연속된 3개를 밟을 수 없으므로
+
+// 점화식
+// i번째 계단을 밟을 수 있는 경우는 두 가지
+// 1. (i-3)번째 계단에서 (i-2)번째 계단을 건너뛰고 (i-1)과 i를 밟는 경우 oxoi
+// 점수: dp[i-3] + stairs[i-2] + stairs[i-1]
+
+// 2. (i-2)번째 계단에서 바로 i번째 계단으로 이동하는 경우 oxi
+// 점수: dp[i-2] + stairs[i-1]
+
+for (let i = 3; i <= N; i++) {
+  dp[i] = Math.max(
+    dp[i - 3] + stairs[i - 1] + stairs[i],
+    dp[i - 2] + stairs[i],
+  );
 }
 
-console.log(dp[N - 1])
+console.log(dp[N]);

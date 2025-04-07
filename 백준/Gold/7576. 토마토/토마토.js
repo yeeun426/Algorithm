@@ -1,48 +1,50 @@
-let input = require('fs').readFileSync('/dev/stdin').toString().trim().split('\n');
+// 모든 지점으로부터 거리를 구하는 문제
+// 모든 시작점을 큐에 넣고 BFS를 돌리기
+// 익은 토마토(시작점)는 큐에 넣고, 익지 않은 토마토는 dist -1로 둔다.
 
-const [M, N] = input[0].split(" ").map(Number);
-const box = [];
+let [size, ...tomatos] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
+
+const [m, n] = size.split(" ").map(Number);
+const ripedDist = Array.from({ length: n }, () => Array(m).fill(0)); // 익거나 빈칸 -> 0
+tomatos = tomatos.map((t) => t.split(" ").map(Number));
+
+const dx = [1, 0, -1, 0];
+const dy = [0, 1, 0, -1];
 const queue = [];
 
-for(let i = 1 ; i <= N ; i++) {
-    box.push(input[i].split(" ").map(Number));
-
-    for(let j = 0 ; j < box[i-1].length ; j++) {
-        if(box[i-1][j] === 1) {
-            queue.push([i-1, j]);
-        }
-    }
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < m; j++) {
+    if (tomatos[i][j] == 1) queue.push([i, j]);
+    else if (tomatos[i][j] == 0) ripedDist[i][j] = -1; // 익지 않은거 : -1
+  }
 }
 
-  let day = 0;
-    const dx = [-1, 0, 1, 0];
-    const dy = [0, 1, 0, -1];
-    let prevIdx = 0;    // 조회를 시작할 인덱스
-    while (true) {
-      const curIdx = queue.length; // queue 크기는 계속 늘어나므로 queue.length-1 까지 조회한다.
-      let change = 0;
-      for (let i = prevIdx; i < curIdx; i++) {
-        const [x, y] = queue[i];
-        for (let i = 0; i < 4; i++) {
-          const [nx, ny] = [x + dx[i], y + dy[i]];
-          if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
-          if (!box[nx][ny]) {
-            change = 1;
-            box[nx][ny] = day + 1;
-            queue.push([nx, ny]);
-          }
-        }
-      }
-      if (!change) break;
-      day++;
-      prevIdx = curIdx; // curIdx-1까지 조회가 끝나면, curIdx부터 다시 조회를 시작한다.
-    }
-  
+let qIdx = 0;
 
-for (let i = 0; i < N; i++) {
-    if (box[i].includes(0)) {
-        day = -1;
-    }
+while (qIdx < queue.length) {
+  const [x, y] = queue[qIdx++];
+
+  for (let dir = 0; dir < 4; dir++) {
+    const [nx, ny] = [x + dx[dir], y + dy[dir]];
+
+    if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+    if (ripedDist[nx][ny] >= 0) continue;
+
+    queue.push([nx, ny]);
+    ripedDist[nx][ny] = ripedDist[x][y] + 1;
+  }
+}
+
+let day = 0;
+for (let i = 0; i < n; i++) {
+  for (let j = 0; j < m; j++) {
+    if (ripedDist[i][j] == -1) return console.log(-1);
+    day = Math.max(ripedDist[i][j], day);
+  }
 }
 
 console.log(day);

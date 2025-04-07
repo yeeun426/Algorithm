@@ -1,31 +1,35 @@
-let input = require('fs').readFileSync('/dev/stdin').toString().split("\n");
-const [N, M] = input.shift().split(" ").map(Number);
-const map = input.map(x => x.split("").map(Number));
-const queue = [[0, 0]];
+let [size, ...board] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
 
-const dx = [-1, 1, 0, 0];
-const dy = [0, 0 , -1, 1];
+const [N, M] = size.split(" ").map(Number);
+const dist = Array.from({ length: N }, () => Array(M).fill(-1)); // 거리를 저장할 변수
+board = board.map((b) => b.split("").map(Number));
 
-function bfs(x, y) {
-    const queue = [];
-    queue.push([x, y]);
+const dx = [1, 0, -1, 0];
+const dy = [0, 1, 0, -1];
 
-    while(queue.length) {
-        const [x, y] = queue.shift();
+function dfs(startX, startY) {
+  const queue = [];
+  dist[0][0] = 0;
+  queue.push([startX, startY]); 
 
-        for(let i = 0 ; i < 4 ; i++) {
-            const nx = x + dx[i];
-            const ny = y + dy[i];
+  while (queue.length > 0) {
+    const [x, y] = queue.shift();
 
-            if (nx < 0 || ny < 0 || nx >= N || ny >= M) continue;
-            if (map[nx][ny] === 0) continue;
-            if (map[nx][ny] === 1) {
-                map[nx][ny] = map[x][y] + 1;
-                queue.push([nx, ny]);
-            }
-        }
+    for (let dir = 0; dir < 4; dir++) {
+      const [nx, ny] = [x + dx[dir], y + dy[dir]];
+
+      if (nx < 0 || nx >= N || ny < 0 || ny >= M) continue;
+      if (dist[nx][ny] !== -1 || board[nx][ny] !== 1) continue;
+
+      dist[nx][ny] = dist[x][y] + 1;
+      queue.push([nx, ny]);
     }
-    return map[N-1][M-1]
+  }
 }
 
-console.log(bfs(0,0));
+dfs(0, 0);
+console.log(dist[N - 1][M - 1] + 1);

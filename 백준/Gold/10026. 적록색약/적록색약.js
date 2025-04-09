@@ -1,47 +1,59 @@
-let [N, ...input] = require('fs').readFileSync('/dev/stdin').toString().trim().split("\n");
-const painting = input.map(x => x.split(""));
-N = parseInt(N);
-let [normalCnt, colorCnt] = [0, 0];
+let [N, ...board] = require("fs")
+  .readFileSync("/dev/stdin")
+  .toString()
+  .trim()
+  .split("\n");
 
-let visited = new Array(+N).fill().map(() => new Array(+N).fill(0));
-const dx = [-1, 1, 0, 0];
-const dy = [0, 0, -1, 1];
+board = board.map((color) => color.split(""));
+const visited = Array.from({ length: +N }, () => Array(+N).fill(0)); // 적록색약 X
 
-function dfs(x, y) {
-    visited[x][y] = 1;
-    const color = painting[x][y];
+const rgBoard = board.map((row) =>
+  row.map((color) => (color === "R" ? "G" : color)),
+);
+const rgVisited = Array.from({ length: +N }, () => Array(+N).fill(0)); // 적록색약 O
 
-    for(let i = 0 ; i < 4 ; i++) {
-        const [nx, ny] = [x + dx[i], y + dy[i]];
+const answer = [];
+let count = 0;
 
-        if(nx >= 0 && nx < N && ny >= 0 && ny < N && visited[nx][ny] == 0 && painting[x][y] == painting[nx][ny]) {
-            dfs(nx, ny);
-        }
+const dx = [1, 0, -1, 0];
+const dy = [0, 1, 0, -1];
+
+const bfs = (startX, startY, vis, board) => {
+  const queue = [[startX, startY]];
+  vis[startX][startY] = 1;
+  count++;
+
+  while (queue.length > 0) {
+    const [x, y] = queue.shift();
+    let color = board[x][y];
+
+    for (let dir = 0; dir < 4; dir++) {
+      const [nx, ny] = [x + dx[dir], y + dy[dir]];
+      if (nx < 0 || nx >= N || ny < 0 || ny >= N) continue;
+      if (vis[nx][ny] == 1 || board[nx][ny] !== color) continue;
+
+      vis[nx][ny] = 1;
+      queue.push([nx, ny]);
     }
-}
+  }
+};
 
+// 적록 색약 아닌 경우
 for (let i = 0; i < N; i++) {
-    for (let j = 0; j < N; j++) {
-        if (!visited[i][j]) {
-            dfs(i, j);
-            normalCnt++;
-        }   
-    }
+  for (let j = 0; j < N; j++) {
+    if (visited[i][j] === 0) bfs(i, j, visited, board);
+  }
 }
 
-visited = new Array(+N).fill().map(() => new Array(+N).fill(0));
+answer.push(count);
+count = 0;
+
+// 적록 색약인 경우
 for (let i = 0; i < N; i++) {
-    for (let j = 0; j < N; j++) {
-        if (painting[i][j] === "R" || painting[i][j] === "G") painting[i][j] = "#";
-    }
-}
-for (let i = 0; i < N; i++) {
-    for (let j = 0; j < N; j++) {
-        if (!visited[i][j]) {
-            dfs(i, j);
-            colorCnt++;
-        }
-    }
+  for (let j = 0; j < N; j++) {
+    if (rgVisited[i][j] === 0) bfs(i, j, rgVisited, rgBoard);
+  }
 }
 
-console.log(normalCnt, colorCnt);
+answer.push(count);
+console.log(answer.join(" "));

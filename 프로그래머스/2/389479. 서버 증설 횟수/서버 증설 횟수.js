@@ -18,25 +18,24 @@ class MinHeap {
 }
 
 function solution(players, m, k) {
-  let pq = new MinHeap();
-  let size = 0; // 현재 서버의 개수
+  let pq = new MinHeap(); // 서버 만료 시간을 관리할 우선순위 큐
+  let curServerCnt = 0; // 현재 서버의 개수
   let count = 0; // 증설된 서버 횟수
 
   for (let i = 0; i < 24; i++) {
-    // 만료된 서버 내리기
     while (!pq.isEmpty() && pq.peek()[0] === i) {
-      size -= pq.pop()[1];
+      // 만료된 서버 내리기
+      curServerCnt -= pq.pop()[1];
     }
-    let need = parseInt(players[i] / m); // 현재 필요한 서버의 개수
-    let more = size - need; // - 서버 증설 개수
+    let needCnt = parseInt(players[i] / m); // 현재 필요한 서버의 개수
+    let addCnt = curServerCnt - needCnt; // 부족한 서버 개수 계산
 
-    if (more < 0) {
-      more = -more;
-      size += more;
-      count += more;
-      pq.push([i + k, more]);
+    if (addCnt < 0) {
+      addCnt = Math.abs(addCnt);
+      curServerCnt += addCnt;
+      count += addCnt;
+      pq.push([i + k, addCnt]);
     }
   }
-
   return count;
 }

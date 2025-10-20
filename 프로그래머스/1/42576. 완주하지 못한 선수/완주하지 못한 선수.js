@@ -1,10 +1,18 @@
 function solution(participant, completion) {
     var answer = '';
-    participant.sort();
-    completion.sort();
+    const hashMap = new Map();
     
-    for(let i = 0 ; i < participant.length ; i++) { 
-        if(participant[i] !== completion[i]) return participant[i];   
+    for(let p of participant) {
+        hashMap.set(p, (hashMap.get(p) || 0) + 1);
     }
+    
+    for(let c of completion) {
+        hashMap.set(c, hashMap.get(c) - 1);
+    }
+
+    for(let [key, value] of hashMap) {
+        if(value > 0) return key;
+    }
+    
     return answer;
 }

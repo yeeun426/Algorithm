@@ -1,25 +1,30 @@
 function solution(begin, target, words) {
-    var answer = 0;
-    const queue = [[begin, 0]];
-    const visited = new Array(words.length).fill(false);
-
-    if(words.indexOf(target) < 0) return 0;
+    if(!words.includes(target)) return 0;
+    
+    const queue = [[begin, 0]]; // [현재 단어, 단계 수]
+    const visited = new Set();
+    
+    const canConvert = (a,b) => {
+        let diff = 0;
+        for (let i = 0 ; i < a.length ; i++) {
+            if(a[i] !== b[i]) diff++;
+            if(diff > 1) return false;
+        }
+        return diff === 1;
+    }
+    
+    while (queue.length > 0) {
+        const [word, cnt] = queue.shift();
         
-    while(queue.length) {
-        let [now, step] = queue.shift();
-        if(now === target) return step;
-        for(let i = 0 ; i < words.length ; i++) {
-            let temp_cnt = 0 ;
-            if(!visited[i]) {
-                for(let j = 0 ; j < words.length ; j++) {
-                     if(now[j] !== words[i][j]) temp_cnt++;
-                }
-                if(temp_cnt === 1) {
-                    queue.push([words[i], ++step]);
-                    visited[i] = true;
-                }
+        if (word === target) return cnt;
+        
+        for (const next of words) {
+            if(!visited.has(next) && canConvert(word, next)) {
+                visited.add(next);
+                queue.push([next, cnt+1]);
             }
         }
-    } 
-    return answer;
+    }
+    
+    return 0;
 }
